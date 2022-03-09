@@ -65,13 +65,13 @@ def editar_contacto():
             archivo.write("Telefono: " + contacto.telefono + "\r\n")
             archivo.write("Categoria: " + contacto.categoria + "\r\n")
 
-            # Renombrar el archivo
-            os.rename(
-                CARPETA + nombre_anterior + EXTENCION,
-                CARPETA + nombre_contacto + EXTENCION,
-            )
+        # Renombrar el archivo
+        os.rename(
+            CARPETA + nombre_anterior + EXTENCION,
+            CARPETA + nombre_contacto + EXTENCION,
+        )
 
-            print("\r\n CONTACTO EDITADO. \r\n")
+        print("\r\n CONTACTO EDITADO. \r\n")
     else:
         print("Ese contacto ya existe.")
 
