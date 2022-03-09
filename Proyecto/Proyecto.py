@@ -37,7 +37,7 @@ def app():
             editar_contacto()
         elif opcion == 3:
             # preguntar = False
-            print("Ver contactos")
+            ver_contactos()
         elif opcion == 4:
             # preguntar = False
             print("Buscar contacto")
@@ -46,6 +46,20 @@ def app():
             print("Eliminar contacto")
         else:
             print("Opcion ingresada incorrecta.")
+
+def ver_contactos():
+    archivos = os.listdir(CARPETA)
+
+    archivos_txt = [i for i in archivos if i.endswith(EXTENCION)]
+
+    for archivo in archivos_txt:
+        with open(CARPETA + archivo) as contacto:
+            # Imprime el contenido
+            for linea in contacto:
+                print(linea.rstrip())
+            # Imprime un separador entre contactos
+            print('\r\n')
+
 
 
 def editar_contacto():
