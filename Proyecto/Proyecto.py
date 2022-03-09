@@ -1,8 +1,9 @@
 from __future__ import print_function
-from ast import Try
+from ast import Expression, Try
 from msilib.schema import Extension
 import os
 from turtle import up, update
+from xml.dom.minidom import Identified
 
 CARPETA = "INTRODUCCION/Proyecto/contactos/"  # Carpeta de contactos
 EXTENSION = ".txt"  # Extension de archivos
@@ -45,9 +46,19 @@ def app():
             buscar_contacto()
         elif opcion == 5:
             # preguntar = False
-            print("Eliminar contacto")
+            eliminar_contacto()
         else:
             print("Opcion ingresada incorrecta.")
+
+
+def eliminar_contacto():
+    nombre = input(" Seleccione el contacto que desea eliminar: \r\n")
+    try:
+        os.remove(CARPETA + nombre + EXTENSION)
+        print("\r\n Contacto Eliminado\r\n")
+    except IOError:
+        print("Contacto no encontrado.")
+        print(IOError)
 
 
 def buscar_contacto():
