@@ -1,9 +1,11 @@
+from __future__ import print_function
+from ast import Try
 from msilib.schema import Extension
 import os
 from turtle import up, update
 
 CARPETA = "INTRODUCCION/Proyecto/contactos/"  # Carpeta de contactos
-EXTENCION = ".txt"  # Extension de archivos
+EXTENSION = ".txt"  # Extension de archivos
 
 # Contactos
 class Contacto:
@@ -40,17 +42,33 @@ def app():
             ver_contactos()
         elif opcion == 4:
             # preguntar = False
-            print("Buscar contacto")
+            buscar_contacto()
         elif opcion == 5:
             # preguntar = False
             print("Eliminar contacto")
         else:
             print("Opcion ingresada incorrecta.")
 
+
+def buscar_contacto():
+    nombre = input(" Seleccione el contacto que desea buscar: \r\n")
+
+    # La funcion try intentara abrir el archivo
+    try:
+        with open(CARPETA + nombre + EXTENSION) as contacto:
+            print("\r\n Informacion del Contacto:\r\n")
+            for linea in contacto:
+                print(linea.strip())
+            print("\r\n")
+    except IOError:
+        print("Contacto no encontrado.")
+        print(IOError)
+
+
 def ver_contactos():
     archivos = os.listdir(CARPETA)
 
-    archivos_txt = [i for i in archivos if i.endswith(EXTENCION)]
+    archivos_txt = [i for i in archivos if i.endswith(EXTENSION)]
 
     for archivo in archivos_txt:
         with open(CARPETA + archivo) as contacto:
@@ -58,8 +76,7 @@ def ver_contactos():
             for linea in contacto:
                 print(linea.rstrip())
             # Imprime un separador entre contactos
-            print('\r\n')
-
+            print("\r\n")
 
 
 def editar_contacto():
@@ -67,7 +84,7 @@ def editar_contacto():
     nombre_anterior = input("Nombre del Contacto Anterior: ")
 
     if existe_contacto(nombre_anterior):
-        with open(CARPETA + nombre_anterior + EXTENCION, "w") as archivo:
+        with open(CARPETA + nombre_anterior + EXTENSION, "w") as archivo:
             nombre_contacto = input("Nombre del Contacto: ")
             telefono_contacto = input("Agrega el Telefono: ")
             categoria_contacto = input("Categoria Contacto: ")
@@ -81,8 +98,8 @@ def editar_contacto():
 
         # Renombrar el archivo
         os.rename(
-            CARPETA + nombre_anterior + EXTENCION,
-            CARPETA + nombre_contacto + EXTENCION,
+            CARPETA + nombre_anterior + EXTENSION,
+            CARPETA + nombre_contacto + EXTENSION,
         )
 
         print("\r\n CONTACTO EDITADO. \r\n")
@@ -95,7 +112,7 @@ def agregar_contacto():
     nombre_contacto = input("Nombre del Contacto: ")
 
     if not existe_contacto(nombre_contacto):
-        with open(CARPETA + nombre_contacto + EXTENCION, "w") as archivo:
+        with open(CARPETA + nombre_contacto + EXTENSION, "w") as archivo:
             # Resto de los campos
             telefono_contacto = input("Agrega el Telefono: ")
             categoria_contacto = input("Categoria Contacto: ")
@@ -119,6 +136,7 @@ def mostrar_menu():
     print("3)   Ver Contactos")
     print("4)   Buscar Contacto")
     print("5)   Eliminar Contacto")
+    print("0)   Salir del Programa\r\n")
 
 
 def crear_directorio():
@@ -129,7 +147,7 @@ def crear_directorio():
 
 def existe_contacto(nombre_contacto):
     # Revisar si el archivo ya existe antes de crearlo
-    existe = os.path.isfile(CARPETA + nombre_contacto + EXTENCION)
+    existe = os.path.isfile(CARPETA + nombre_contacto + EXTENSION)
     if existe:
         return True
     else:
