@@ -1,6 +1,15 @@
+from msilib.schema import Extension
 import os
 
 CARPETA = "INTRODUCCION/Proyecto/contactos/"  # Carpeta de contactos
+EXTENCION = ".txt"  # Extension de archivos
+
+# Contactos
+class Contacto:
+    def __init__(self, nombre, telefono, categoria):
+        self.nombre = nombre
+        self.telefono = telefono
+        self.categoria = categoria
 
 
 def app():
@@ -17,11 +26,11 @@ def app():
         opcion = int(opcion)
         # Ejecutar las opciones
         if opcion == 0:
-            # preguntar = False
+            preguntar = False
             print("Hasta luego...")
         elif opcion == 1:
             # preguntar = False
-            print("Agregar contacto")
+            agregar_contacto()
         elif opcion == 2:
             # preguntar = False
             print("Editar contacto")
@@ -36,6 +45,25 @@ def app():
             print("Eliminar contacto")
         else:
             print("Opcion ingresada incorrecta.")
+
+
+def agregar_contacto():
+    print("Escribe los datos para agregar el nuevo Contacto.")
+    nombre_contacto = input("Nombre del Contacto: ")
+
+    with open(CARPETA + nombre_contacto + EXTENCION, "w") as archivo:
+        # Resto de los campos
+        telefono_contacto = input("Agrega el Telefono: ")
+        categoria_contacto = input("Categoria Contacto: ")
+
+        # Instanciar la clase
+        contacto = Contacto(nombre_contacto, telefono_contacto, categoria_contacto)
+
+        archivo.write("Nombre: " + contacto.nombre + "\r\n")
+        archivo.write("Telefono: " + contacto.telefono + "\r\n")
+        archivo.write("Categoria: " + contacto.categoria + "\r\n")
+
+        print('\r\n CONTACTO AGREGADO. \r\n')
 
 
 def mostrar_menu():
