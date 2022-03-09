@@ -1,6 +1,6 @@
 import os
 
-CARPETA = "contactos/"  # Carpeta de contactos
+CARPETA = "INTRODUCCION/Proyecto/contactos/"  # Carpeta de contactos
 
 
 def app():
